@@ -28,6 +28,7 @@ namespace RaceTrack_Simulator {
         public bool PlaceBet(int BetAmount, int DogToWin) {
             // Place a new bet and store it in my bet field
             // Return true if the guy had enough money to bet
+            return false;
         }
 
         public void Collect(int Winner) {

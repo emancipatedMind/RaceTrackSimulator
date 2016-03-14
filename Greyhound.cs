@@ -18,6 +18,7 @@ namespace RaceTrack_Simulator {
             // Update the position of myPictureBox on the form like this:
             //    MyPictureBox.Left = StartingPosition + Location;
             // Return true if I won the race.
+            return false;
         }
 
         public void TakeStartingPosition() {
