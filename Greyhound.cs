@@ -7,23 +7,51 @@ using System.Windows.Forms;
 
 namespace RaceTrack_Simulator {
     class Greyhound {
-        public int StartingPosition; // Where myPictureBox starts.
-        public int RacetrackLength; // How long the racetrack is.
-        public PictureBox MyPictureBox; // PictureBox object.
-        public int Location = 0; // My location on the racetrack.
-        public Random Randomizer; // An instance of Random.
+        static private int racetrackLength = 895; // How long the racetrack is.
+        static private int startingPosition = 85; // Where myPictureBox starts.
+        static private int endingPosition = 980; // Ending of racetrack.
+
+        // If racetrack length is changed, new race endpoint must be established.
+        static public int RacetrackLength {
+            get { return racetrackLength; }
+            set {
+                racetrackLength = value;
+                endingPosition = startingPosition + racetrackLength;
+            }
+        }
+
+        // If starting position is changed, new race endpoint must be established.
+        static public int StartingPosition {
+            get { return startingPosition; }
+            set {
+                startingPosition = value;
+                endingPosition = startingPosition + racetrackLength;
+            }
+        }
+
+        private PictureBox myPictureBox; // PictureBox object.
+        private Random randomizer; // An instance of Random.
+        private bool crossedFinishLine = false; // Has dog crossed finish line?
+
+        public bool CrossedFinishLine { get { return crossedFinishLine; } }
+
+        public Greyhound(PictureBox myPictureBox, Random randomizer) {
+            this.myPictureBox = myPictureBox;
+            this.randomizer = randomizer;
+        }
 
         public bool Run() {
             // Move forward either 1, 2, 3, or 4 spaces at random.
-            // Update the position of myPictureBox on the form like this:
-            //    MyPictureBox.Left = StartingPosition + Location;
             // Return true if I won the race.
-            return false;
+            int nextStep = randomizer.Next(1, 4) * 10;
+            myPictureBox.Left += nextStep;
+            crossedFinishLine = myPictureBox.Left >= Greyhound.endingPosition;
+            return crossedFinishLine;
         }
 
         public void TakeStartingPosition() {
-            // Reset my location to 0, and myPictureBox to starting position.
+            // Reset location by setting myPictureBox.Left to starting position.
+            myPictureBox.Left = startingPosition;
         }
-
     }
 }
