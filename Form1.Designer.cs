@@ -164,6 +164,7 @@
             this.removeBetButton.TabIndex = 12;
             this.removeBetButton.Text = "Remove Bet";
             this.removeBetButton.UseVisualStyleBackColor = true;
+            this.removeBetButton.Click += new System.EventHandler(this.removeBetButton_Click);
             // 
             // placeBetButton
             // 
@@ -174,6 +175,7 @@
             this.placeBetButton.TabIndex = 12;
             this.placeBetButton.Text = "Place Bet";
             this.placeBetButton.UseVisualStyleBackColor = true;
+            this.placeBetButton.Click += new System.EventHandler(this.placeBetButton_Click);
             // 
             // betAmount
             // 
@@ -222,6 +224,7 @@
             this.selectBettor.Size = new System.Drawing.Size(119, 24);
             this.selectBettor.TabIndex = 11;
             this.selectBettor.Text = "Select Bettor";
+            this.selectBettor.SelectedIndexChanged += new System.EventHandler(this.selectBettor_SelectedIndexChanged);
             // 
             // selectBettorLabel
             // 
@@ -293,7 +296,7 @@
             this.alBetLabel.Name = "alBetLabel";
             this.alBetLabel.Size = new System.Drawing.Size(300, 19);
             this.alBetLabel.TabIndex = 7;
-            this.alBetLabel.Text = "Al hasn\'t placed a bet.";
+            this.alBetLabel.Text = "Al\'s slip is empty...";
             // 
             // bobBetLabel
             // 
@@ -303,7 +306,7 @@
             this.bobBetLabel.Name = "bobBetLabel";
             this.bobBetLabel.Size = new System.Drawing.Size(300, 19);
             this.bobBetLabel.TabIndex = 6;
-            this.bobBetLabel.Text = "Bob hasn\'t placed a bet.";
+            this.bobBetLabel.Text = "Bob\'s slip is empty...";
             // 
             // joeBetLabel
             // 
@@ -313,7 +316,7 @@
             this.joeBetLabel.Name = "joeBetLabel";
             this.joeBetLabel.Size = new System.Drawing.Size(300, 19);
             this.joeBetLabel.TabIndex = 5;
-            this.joeBetLabel.Text = "Joe hasn\'t placed a bet.";
+            this.joeBetLabel.Text = "Joe\'s slip is empty...";
             // 
             // alInfo
             // 

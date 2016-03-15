@@ -13,6 +13,8 @@ namespace RaceTrack_Simulator {
 
         Random randomizer;
         List<Greyhound> racingDogs;
+        Dictionary<string, Guy> guys;
+        Guy bettorAtWindow;
 
         public Form1() {
             InitializeComponent();
@@ -24,6 +26,13 @@ namespace RaceTrack_Simulator {
                 new Greyhound(dog2, randomizer),
                 new Greyhound(dog3, randomizer),
             };
+            guys = new Dictionary<string, Guy> {
+                { "Joe", new Guy("Joe", 50, joeBetLabel, joeInfo) },
+                { "Bob", new Guy("Bob", 75, bobBetLabel, bobInfo) },
+                { "Al", new Guy("Al", 45, alBetLabel, alInfo) },
+            };
+
+            placeBetButton.Visible = false;
             removeBetButton.Visible = false;
         }
 
@@ -74,17 +83,19 @@ namespace RaceTrack_Simulator {
             MessageBox.Show(tieBreakerMessage + "Dog in lane " + winningDogLane + " has won the race!", "The announcer says...");
 
             // Now that a winner has been determined, pay out bets.
-            // PayOutBets(winningDogLane); 
+            PayOutBets(winningDogLane); 
 
             // Re-open betting window.
             raceButton.Visible = true;
-            placeBetButton.Visible = true;
             selectBettor.Text = "Select Bettor";
         }
 
         private void PayOutBets(int winningDogLane) {
             // Each bettor's ticket is checked. If the bettor was correct, the amount of the bet is paid out.
             // If the bettor was incorrect, then he must pay up.
+            foreach (Guy guy in guys.Values) {
+                guy.Collect(winningDogLane);
+            }
         }
 
         private void raceButton_Click(object sender, EventArgs e) {
@@ -97,6 +108,28 @@ namespace RaceTrack_Simulator {
             placeBetButton.Visible = false;
             removeBetButton.Visible = false;
             selectBettor.Text = "Window Closed";
+        }
+
+        private void placeBetButton_Click(object sender, EventArgs e) {
+            if (selectDog.Text == "Select Dog") {
+                MessageBox.Show("Sir, please select a dog...", "The window attendant says...");
+                return;
+            }
+            int lane = selectDog.SelectedIndex + 1;
+            int betAmount = (int) this.betAmount.Value;
+            if (bettorAtWindow.PlaceBet(betAmount, lane)) removeBetButton.Visible = true;
+        }
+
+        private void selectBettor_SelectedIndexChanged(object sender, EventArgs e) {
+            bettorAtWindow = guys[selectBettor.Text];
+            if (bettorAtWindow.IsSlipFilledOut) removeBetButton.Visible = true;
+            else removeBetButton.Visible = false;
+            placeBetButton.Visible = true;
+        }
+
+        private void removeBetButton_Click(object sender, EventArgs e) {
+            bettorAtWindow.ClearBettingSlip();
+            removeBetButton.Visible = false;
         }
     }
 }

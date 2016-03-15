@@ -6,23 +6,50 @@ using System.Threading.Tasks;
 
 namespace RaceTrack_Simulator {
     class Bet {
-        public int Amount; // The amount of cash that was bet.
-        public int Dog; // The number of the dog the bet is on.
-        public Guy Bettor; // The guy who placed the bet.
 
-        public string GetDescription() {
+        static private int minimumBet = 5;
+        static public int MinimumBet {
+            get { return minimumBet; }
+            set { minimumBet = value; }
+        }
+
+        private int amount; // The amount of cash that was bet.
+        private int lane; // The number of the dog the bet is on.
+        private Guy bettor; // The guy who placed the bet.
+
+        public Bet(Guy bettor) {
+            this.bettor = bettor;
+        }
+
+        public string ReadSlip() {
             // Return a string that says who placed the bet, how much
             // cash was bet, and which dog he bet on ("Joe bets 8 on
             // dog #4"). If the amount is zero, no bet was placed
             // ("Joe hasn't placed a bet").
-            return "false";
+            if (amount == 0) return bettor.Name + "'s slip is empty...";
+            string description = bettor.Name + " has bet $" + amount + " on dog " + lane + ".";
+            return description;
         } 
 
-        public int PayOut(int Winner) {
+        public int PayOut(int winnersLane) {
             // The parameter is the winner of the race. If the dog won,
             // return the amount bet. Otherwise, return the negative of
             // the amount bet.
-            return 0;
+            if (winnersLane == lane) return amount;
+            else return -1 * amount;
+        }
+
+        public bool FillOutSlip(int amount, int lane)  {
+            if (amount < minimumBet) return false;
+            this.amount = amount;
+            this.lane = lane;
+            return true;
+        }
+
+        public void ClearSlip() {
+            // Betting slip is cleared by setting amount, and lane to 0.
+            amount = 0;
+            lane = 0;
         }
     }
 }
