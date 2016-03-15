@@ -356,7 +356,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 20);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Current Bets";
+            this.label1.Text = "Betting Slips";
             // 
             // raceTimer
             // 

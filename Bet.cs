@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace RaceTrack_Simulator {
     class Bet {
 
+        // Minimum bet allowed by bet slip.
         static private int minimumBet = 5;
         static public int MinimumBet {
             get { return minimumBet; }
@@ -25,7 +26,7 @@ namespace RaceTrack_Simulator {
             // Return a string that says who placed the bet, how much
             // cash was bet, and which dog he bet on ("Joe bets 8 on
             // dog #4"). If the amount is zero, no bet was placed
-            // ("Joe hasn't placed a bet").
+            // ("Joe's slip is empty...").
             if (amount == 0) return bettor.Name + "'s slip is empty...";
             string description = bettor.Name + " has bet $" + amount + " on dog " + lane + ".";
             return description;
@@ -40,6 +41,8 @@ namespace RaceTrack_Simulator {
         }
 
         public bool FillOutSlip(int amount, int lane)  {
+            // Fills out slip. If amount is lower than minimum bet allowed,
+            // returns false.
             if (amount < minimumBet) return false;
             this.amount = amount;
             this.lane = lane;

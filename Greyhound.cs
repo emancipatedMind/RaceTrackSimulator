@@ -33,7 +33,7 @@ namespace RaceTrack_Simulator {
         private Random randomizer; // An instance of Random.
         private bool crossedFinishLine = false; // Has dog crossed finish line?
 
-        public bool CrossedFinishLine { get { return crossedFinishLine; } }
+        public bool CrossedFinishLine { get { return crossedFinishLine; } } // Did dog cross finish line with last step?
 
         public Greyhound(PictureBox myPictureBox, Random randomizer) {
             this.myPictureBox = myPictureBox;
@@ -41,9 +41,9 @@ namespace RaceTrack_Simulator {
         }
 
         public bool Run() {
-            // Move forward either 1, 2, 3, or 4 spaces at random.
-            // Return true if I won the race.
-            int nextStep = randomizer.Next(1, 4) * 10;
+            // Move forward either 5, 10, 15, or 20 spaces at random.
+            // Return true if finish line crossed.
+            int nextStep = randomizer.Next(1, 4) * 5;
             myPictureBox.Left += nextStep;
             crossedFinishLine = myPictureBox.Left >= Greyhound.endingPosition;
             return crossedFinishLine;
