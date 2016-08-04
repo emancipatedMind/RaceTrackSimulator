@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace RaceTrack_Simulator {
     class Greyhound {
-        static private int racetrackLength = 895; // How long the racetrack is.
-        static private int startingPosition = 85; // Where myPictureBox starts.
-        static private int endingPosition = 980; // Ending of racetrack.
+        static private int racetrackLength; // How long the racetrack is.
+        static private int startingPosition; // Where myPictureBox starts.
+        static private int endingPosition; // Ending of racetrack.
 
         // If racetrack length is changed, new race endpoint must be established.
         static public int RacetrackLength {
@@ -29,11 +29,16 @@ namespace RaceTrack_Simulator {
             }
         }
 
+        static Greyhound() {
+            racetrackLength = 895;
+            startingPosition = 85;
+            endingPosition = 980;
+        }
+
         private PictureBox myPictureBox; // PictureBox object.
         private Random randomizer; // An instance of Random.
-        private bool crossedFinishLine = false; // Has dog crossed finish line?
 
-        public bool CrossedFinishLine { get { return crossedFinishLine; } } // Did dog cross finish line with last step?
+        public bool CrossedFinishLine { get; private set; } = false; // Did dog cross finish line with last step?
 
         public Greyhound(PictureBox myPictureBox, Random randomizer) {
             this.myPictureBox = myPictureBox;
@@ -45,8 +50,8 @@ namespace RaceTrack_Simulator {
             // Return true if finish line crossed.
             int nextStep = randomizer.Next(1, 4) * 5;
             myPictureBox.Left += nextStep;
-            crossedFinishLine = myPictureBox.Left >= Greyhound.endingPosition;
-            return crossedFinishLine;
+            CrossedFinishLine = myPictureBox.Left >= Greyhound.endingPosition;
+            return CrossedFinishLine;
         }
 
         public void TakeStartingPosition() {

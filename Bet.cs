@@ -8,10 +8,10 @@ namespace RaceTrack_Simulator {
     class Bet {
 
         // Minimum bet allowed by bet slip.
-        static private int minimumBet = 5;
-        static public int MinimumBet {
-            get { return minimumBet; }
-            set { minimumBet = value; }
+        static public int MinimumBet { get; set; }
+
+        static Bet() {
+            MinimumBet = 5;
         }
 
         private int amount; // The amount of cash that was bet.
@@ -27,9 +27,8 @@ namespace RaceTrack_Simulator {
             // cash was bet, and which dog he bet on ("Joe bets 8 on
             // dog #4"). If the amount is zero, no bet was placed
             // ("Joe's slip is empty...").
-            if (amount == 0) return bettor.Name + "'s slip is empty...";
-            string description = bettor.Name + " has bet $" + amount + " on dog " + lane + ".";
-            return description;
+            if (amount == 0) return $"{bettor.Name}'s slip is empty...";
+            else return $"{bettor.Name} has bet ${amount} on dog {lane}.";
         } 
 
         public int PayOut(int winnersLane) {
@@ -43,7 +42,7 @@ namespace RaceTrack_Simulator {
         public bool FillOutSlip(int amount, int lane)  {
             // Fills out slip. If amount is lower than minimum bet allowed,
             // returns false.
-            if (amount < minimumBet) return false;
+            if (amount < MinimumBet) return false;
             this.amount = amount;
             this.lane = lane;
             return true;

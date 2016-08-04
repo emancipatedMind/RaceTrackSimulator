@@ -54,7 +54,7 @@ namespace RaceTrack_Simulator {
                 // Finish line has been crossed by one or more dogs, so declare winner
                 // and decide whether another race will take place.
                 DeclareWinner();
-                CloseUpShop();
+                CloseUpShopIfBettorsAreBroke();
                 return;
             }
 
@@ -151,7 +151,7 @@ namespace RaceTrack_Simulator {
             removeBetButton.Visible = false;
         }
 
-        private void CloseUpShop() {
+        private void CloseUpShopIfBettorsAreBroke() {
             // If all bettors have less than the minimum bet, there is no point in holding more races. The race track will close.
             foreach (Guy guy in guys.Values) {
                 if (guy.Cash > Bet.MinimumBet) return;
